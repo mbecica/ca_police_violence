@@ -8,6 +8,7 @@ This repo and dataset was created to support a GIS project for PH277 and my mast
 
 The "incidents_places_disparity_rates.csv" file has the following data columns, for each Census Designated Place in California: 
 - Police Killing incidents per race, totals and percents:
+  
  'native_incidents',
  'asian_incidents',
  'black_incidents',
@@ -25,7 +26,9 @@ The "incidents_places_disparity_rates.csv" file has the following data columns, 
  'unknown_incidents_pct',
  'white_incidents_pct',
  'poc_incidents_pct'
+
 - Population per race, totals and percents:
+
  'total_pop',
  'white_pop',
  'native_pop',
@@ -43,7 +46,10 @@ The "incidents_places_disparity_rates.csv" file has the following data columns, 
  'hispanic_pop_pct',
  'unknown_pop_pct',
  'poc_pop_pct'
+
 - Incident disparity rates for each race vs. white. Disparity rates are null if total_incidents is less than 5. Disparity rates are set to a maximum of 20 when white incidents are zero and any race incidents are not zero - 20 is set instead of infinity. These min and max outlier variables can be changed in the create_police_stats notebook.
+Disparity rate is calculated by: (Group Incidents / Group Population) / (White Incidents / White Population)
+
  'native_likelihood_vs_white',
  'asian_likelihood_vs_white',
  'black_likelihood_vs_white',
