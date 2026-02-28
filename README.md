@@ -1,59 +1,39 @@
-This analysis is based on data from Mapping Police Violence. Read their full methodology here: https://mappingpoliceviolence.org/files/MappingPoliceViolence_Methodology.pdf
-
-“Mapping Police Violence,” Campaign Zero, Accessed February 2026, https://mappingpoliceviolence.org/
+This analysis is based on data from Mapping Police Violence. Read their [full methodology here](https://mappingpoliceviolence.org/files/MappingPoliceViolence_Methodology.pdf).
 
 Census places are used as the geographic scale as a compromise between County (too general geographically, but many other police-related datasets at this scale) and Census Tract (not enough data in the MPV to create statistics).
 
 This repo and dataset was created to support a GIS project for PH277 and my masters of city and regional planning capstone at UC Berkeley College of Environmental Design.
 
-The "incidents_places_disparity_rates.csv" file has the following data columns, for each Census Designated Place in California: 
-- Police Killing incidents per race, totals and percents:
-  
- 'native_incidents',
- 'asian_incidents',
- 'black_incidents',
- 'hispanic_incidents',
- 'pi_incidents',
- 'unknown_incidents',
- 'white_incidents',
- 'total_incidents',
- 'poc_incidents',
- 'native_incidents_pct',
- 'asian_incidents_pct',
- 'black_incidents_pct',
- 'hispanic_incidents_pct',
- 'pi_incidents_pct',
- 'unknown_incidents_pct',
- 'white_incidents_pct',
- 'poc_incidents_pct'
+Sources:
+- “Mapping Police Violence,” Campaign Zero, Accessed February 2026, https://mappingpoliceviolence.org/
+- US Census ACS 5-year 2020-2024, Table B03002
 
-- Population per race, totals and percents:
+## Race and Ethnicity
+Column names in this data use race categories from MPV, and map to Census definitions in the following way: 
+| This repo | MPV | Census |
+| --- | --- | --- |
+| white | White | Non-Hispanic White |
+| asian | Asian | Non-Hispanic Asian |
+| black | Black | Non-Hispanic Black |
+| hispanic | Hispanic | Hispanic or Latino |
+| native | American Indian and Alaska Native | Non-Hispanic American Indian and Alaska Native |
+| pi | Native Hawaiian and Pacific Islander | Non-Hispanic Native Hawaiian and Pacific Islander |
+| unknown | Unknown race | Sum of Non-Hispanic Some other race and Non-Hispanic two or more races |
+| poc | n/a | Sum of all non-white races |
 
- 'total_pop',
- 'white_pop',
- 'native_pop',
- 'pi_pop',
- 'black_pop',
- 'asian_pop',
- 'hispanic_pop',
- 'unknown_pop',
- 'poc_pop',
- 'white_pop_pct',
- 'native_pop_pct',
- 'pi_pop_pct',
- 'black_pop_pct',
- 'asian_pop_pct',
- 'hispanic_pop_pct',
- 'unknown_pop_pct',
- 'poc_pop_pct'
+## Disparity Calculation
+Each race has an incident disparity rate as compared to the white baseline. Disparity rate is calculated by: 
+$$(Group Incidents / Group Population) / (White Incidents / White Population)$$
 
-- Incident disparity rates for each race vs. white. Disparity rates are null if total_incidents is less than 5. Disparity rates are set to a maximum of 20 when white incidents are zero and any race incidents are not zero - 20 is set instead of infinity. These min and max outlier variables can be changed in the create_police_stats notebook.
-Disparity rate is calculated by: (Group Incidents / Group Population) / (White Incidents / White Population)
+Disparity rates are null if `total_incidents` is less than 5 for that Place. Disparity rates are set to a maximum of 20 when white incidents are zero and any race incidents are not zero - 20 is set instead of infinity. These min and max outlier variables can be changed in the `create_police_stats` notebook:
+```
+min_incidents=5
+disparity_cap_value=20.0
+```
 
- 'native_likelihood_vs_white',
- 'asian_likelihood_vs_white',
- 'black_likelihood_vs_white',
- 'hispanic_likelihood_vs_white',
- 'pi_likelihood_vs_white',
- 'unknown_likelihood_vs_white',
- 'poc_likelihood_vs_white'
+## incidents_places_disparity_rates.csv data
+
+- Each row is a unique Census Designated Place in California. These are described in the columns `PLACEFP` which is a Place's Census 5-digit FIPS code, and `NAME`.
+- Each race category has Police Killing incidents per race, indicated with `_incidents`, in totals and percents. `_pct` at the end of a column name indicates a percent, as a percent of total incidents in that Place.
+- Each race category has population data per race, indicated with `_pop`, in totals and percents. `_pct` at the end of a column name indicates a percent, as a percent of total population in that Place.
+- Incident disparity rates for each race as compared to the white baseline, indicated with `_likelihood_vs_white`.
