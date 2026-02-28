@@ -22,10 +22,14 @@ Column names in this data use race categories from MPV, and map to Census defini
 | poc | n/a | Sum of all non-white races |
 
 ## Disparity Calculation
-Each race has an incident disparity rate as compared to the white baseline. Disparity rate is calculated by: 
-$$(Group Incidents / Group Population) / (White Incidents / White Population)$$
+Each race has an incident disparity rate as compared to the white baseline. Disparity rate is calculated by:
+```math
+(Group Incidents / Group Population) / (White Incidents / White Population)
+
+```
 
 Disparity rates are null if `total_incidents` is less than 5 for that Place. Disparity rates are set to a maximum of 20 when white incidents are zero and any race incidents are not zero - 20 is set instead of infinity. These min and max outlier variables can be changed in the `create_police_stats` notebook:
+
 ```
 min_incidents=5
 disparity_cap_value=20.0
