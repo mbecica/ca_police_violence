@@ -1,4 +1,4 @@
-This analysis is based on data from Mapping Police Violence. Read their [full methodology here](https://mappingpoliceviolence.org/files/MappingPoliceViolence_Methodology.pdf).
+This analysis is based on data from Mapping Police Violence (2013-2026) for the state of California. Read their [full methodology here](https://mappingpoliceviolence.org/files/MappingPoliceViolence_Methodology.pdf).
 
 Census places are used as the geographic scale as a compromise between County (too general geographically, but many other police-related datasets at this scale) and Census Tract (not enough data in the MPV to create statistics).
 
